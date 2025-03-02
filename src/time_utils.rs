@@ -1,4 +1,4 @@
-use chrono::{DateTime, Datelike, Duration, Local, NaiveDate, NaiveDateTime, Utc, Weekday};
+use chrono::{DateTime, Datelike, Duration, Local, NaiveDate, Utc, Weekday};
 
 pub fn current_time_timestamp() -> i64 {
     Utc::now().timestamp()
@@ -13,9 +13,9 @@ pub fn current_date() -> NaiveDate {
 }
 
 pub fn is_timestamp_on_day(timestamp: i64, adjustment: i64) -> bool {
-    let timestamp_date = NaiveDateTime::from_timestamp_opt(timestamp, 0)
+    let timestamp_date = DateTime::from_timestamp(timestamp, 0)
         .expect("Invalid timestamp")
-        .date();
+        .date_naive();
     let today_date = (Local::now() + Duration::days(adjustment)).date_naive();
     timestamp_date == today_date
 }
